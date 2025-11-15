@@ -8,47 +8,6 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 215 25% 15%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 215 25% 15%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 15%;
-
-    --primary: 215 85% 25%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 215 20% 95%;
-    --secondary-foreground: 215 85% 25%;
-
-    --muted: 215 20% 96%;
-    --muted-foreground: 215 15% 45%;
-
-    --accent: 30 95% 55%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 215 20% 90%;
-    --input: 215 20% 90%;
-    --ring: 215 85% 25%;
-
-    --radius: 0.75rem;
-
-    --gradient-primary: linear-gradient(135deg, hsl(215 85% 25%) 0%, hsl(215 75% 35%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(215 85% 20%) 0%, hsl(215 75% 30%) 50%, hsl(30 95% 55%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(30 95% 55%) 0%, hsl(25 90% 50%) 100%);
-    
-    --shadow-elevation: 0 4px 20px -2px hsl(215 85% 25% / 0.15);
-    --shadow-strong: 0 10px 40px -5px hsl(215 85% 25% / 0.25);
-
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .dark {
     --background: 215 30% 6%;
     --foreground: 0 0% 98%;
 
@@ -77,22 +36,295 @@ All colors MUST be HSL.
     --input: 215 25% 15%;
     --ring: 215 85% 60%;
 
+    --radius: 0.125rem;
+
     --gradient-primary: linear-gradient(135deg, hsl(215 85% 20%) 0%, hsl(215 75% 30%) 100%);
     --gradient-hero: linear-gradient(135deg, hsl(215 85% 15%) 0%, hsl(215 75% 25%) 50%, hsl(30 95% 50%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(30 95% 50%) 0%, hsl(25 90% 45%) 100%);
 
     --shadow-elevation: 0 4px 20px -2px hsl(215 85% 5% / 0.5);
-    --shadow-strong: 0 10px 40px -5px hsl(215 85% 5% / 0.7);
+    --shadow-strong: 0 10px 40px -5px hsl(215 67% 5% / 0.7);
+
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .light {
+    --background: 0 0% 100%;
+    --foreground: 215 25% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 15%;
+
+    --primary: 215 85% 25%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 215 20% 95%;
+    --secondary-foreground: 215 85% 25%;
+
+    --muted: 215 20% 96%;
+    --muted-foreground: 215 15% 45%;
+
+    --accent: 30 95% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 215 20% 90%;
+    --input: 215 20% 90%;
+    --ring: 215 85% 25%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(215 85% 25%) 0%, hsl(215 75% 35%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(215 85% 20%) 0%, hsl(215 75% 30%) 50%, hsl(30 95% 55%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(30 95% 55%) 0%, hsl(25 90% 50%) 100%);
+    
+    --shadow-elevation: 0 4px 20px -2px hsl(215 85% 25% / 0.15);
+    --shadow-strong: 0 10px 40px -5px hsl(215 85% 25% / 0.25);
   }
 }
 
 @layer base {
   * {
     border-color: hsl(var(--border));
+    border-radius: var(--radius) !important;
+  }
+
+  html {
+    background-color: hsl(var(--background)) !important;
+    color: hsl(var(--foreground)) !important;
   }
 
   body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
+    background-color: hsl(var(--background)) !important;
+    color: hsl(var(--foreground)) !important;
+  }
+
+  /* Force dark theme colors */
+  html, body, #root {
+    background-color: hsl(215, 30%, 6%) !important;
+    color: hsl(0, 0%, 98%) !important;
+  }
+
+  /* Override any light theme that might be applied */
+  .bg-white, .bg-background {
+    background-color: hsl(215, 30%, 6%) !important;
+  }
+  
+  /* Allow backgrounds to show through - only override specific elements */
+  .bg-white:not([class*="bg-gradient"]) {
+    background-color: hsl(215, 30%, 6%) !important;
+  }
+
+  .text-black, .text-foreground {
+    color: hsl(0, 0%, 98%) !important;
+  }
+
+  /* Only set background for main page container, not sections with images */
+  .min-h-screen:not(section) {
+    background-color: hsl(215, 30%, 6%) !important;
+  }
+  
+  /* Make all containers transparent to allow backgrounds to show */
+  .container, main {
+    background-color: transparent !important;
+  }
+
+  /* Override specific background classes to use consistent dark color */
+  .bg-card, .bg-secondary, .bg-muted {
+    background-color: hsl(215, 30%, 6%) !important;
+  }
+  
+  /* Don't override gradient sections - let them keep their styling */
+  
+  /* Keep primary background for active navigation items only */
+  nav .bg-primary {
+    background-color: hsl(215, 85%, 60%) !important;
+  }
+  
+  /* Footer should use dark background */
+  footer {
+    background-color: hsl(215, 30%, 6%) !important;
+  }
+
+  /* Force all borders to be sharp and rectangular */
+  * {
+    border-radius: 0.125rem !important;
+  }
+  
+  .rounded, .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl {
+    border-radius: 0.125rem !important;
+  }
+
+  /* Hide toast/notification containers */
+  [data-sonner-toaster],
+  [data-radix-toast-viewport],
+  .toaster,
+  [data-sonner-toast],
+  [data-radix-toast-root],
+  [role="region"][aria-label*="toast"],
+  [role="region"][aria-label*="notification"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+
+  /* Fix scroll area styling instead of hiding */
+  [data-radix-scroll-area-corner] {
+    background-color: transparent !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+  
+  [data-radix-scroll-area-scrollbar] {
+    background-color: transparent !important;
+    width: 0 !important;
+  }
+
+  /* Remove development element outlines but don't hide elements */
+  [data-lov-id],
+  [data-component-path],
+  [data-lov-name],
+  [data-component-line],
+  [data-component-file],
+  [data-component-name],
+  [data-component-content] {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Fix footer grid layout to prevent empty grey boxes */
+  footer .grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
+  }
+
+  footer .grid > div {
+    flex: 1 1 200px !important;
+    min-width: 200px !important;
+    margin-bottom: 2rem !important;
+  }
+
+  @media (max-width: 768px) {
+    footer .grid > div {
+      flex: 1 1 100% !important;
+      min-width: 100% !important;
+    }
+  }
+
+  /* Hero entrance animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    opacity: 0;
+    transform: scale(0.95);
+    animation: scaleIn 0.6s ease-out forwards;
+  }
+
+  .animation-delay-200 {
+    animation-delay: 0.2s;
+  }
+
+  .animation-delay-400 {
+    animation-delay: 0.4s;
+  }
+
+  .animation-delay-600 {
+    animation-delay: 0.6s;
+  }
+
+  .delay-200 {
+    transition-delay: 200ms;
+  }
+
+  .delay-400 {
+    transition-delay: 400ms;
+  }
+
+  .delay-500 {
+    transition-delay: 500ms;
+  }
+
+  .delay-600 {
+    transition-delay: 600ms;
+  }
+
+  .delay-900 {
+    transition-delay: 900ms;
+  }
+
+  .delay-1000 {
+    transition-delay: 1000ms;
+  }
+
+  .delay-1500 {
+    transition-delay: 1500ms;
+  }
+
+  .duration-800 {
+    transition-duration: 800ms;
+  }
+
+  .duration-1200 {
+    transition-duration: 1200ms;
+  }
+
+  .duration-1000 {
+    transition-duration: 1000ms;
+  }
+
+  .duration-2000 {
+    transition-duration: 2000ms;
+  }
+
+  .duration-1800 {
+    transition-duration: 1800ms;
+  }
+
+  .duration-1500 {
+    transition-duration: 1500ms;
   }
 }

@@ -4,11 +4,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Send, Instagram } from "lucide-react";
 import { useState } from "react";
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,17 +21,25 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Construct email body with all form information
+    const emailBody = `
+Name: ${formData.name}
+Phone: ${formData.phone}
+Email: ${formData.email}
+
+${formData.message}
+    `;
+    
+    // Create mailto link with all information
+    const mailtoLink = `mailto:hemanya.katram@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(emailBody)}`;
+    
+    // Open default email client
+    window.location.href = mailtoLink;
+    
     toast({
-      title: "Message Sent!",
-      description: "We'll get back to you as soon as possible.",
-    });
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: "",
+      title: "Opening Email Client",
+      description: "Your default email app will open to send the message.",
     });
   };
 
@@ -51,12 +61,20 @@ const Contact = () => {
       title: "Location",
       content: "43521 Old Ryan Rd, Ashburn, VA 20148",
       description: "Serving all of Northern Virginia",
+      link: "https://maps.app.goo.gl/whX5CK39XApVn7BBA",
     },
     {
       icon: Clock,
       title: "Business Hours",
       content: "Mon-Fri: 8AM-6PM",
       description: "Sat: 9AM-4PM, Sun: Closed",
+    },
+    {
+      icon: Instagram,
+      title: "Instagram",
+      content: "@sadrivingva",
+      description: "Follow us for updates",
+      link: "https://www.instagram.com/sadrivingva/",
     },
   ];
 
@@ -66,31 +84,58 @@ const Contact = () => {
       <section className="bg-gradient-primary text-primary-foreground py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
-            <p className="text-xl opacity-95">
-              Have questions? We're here to help! Reach out to us anytime.
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">Contact Us</h1>
+            <p className="text-lg opacity-90 mb-8">
+              Get in touch with our team for any questions about our driving programs
             </p>
           </div>
         </div>
       </section>
 
-      {/* Contact Info Cards */}
+        {/* Contact Info Cards */}
       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {contactInfo.map((info, index) => (
-                <Card key={index} className="text-center shadow-elevation">
-                  <CardHeader>
-                    <info.icon className="w-10 h-10 text-primary mx-auto mb-2" />
-                    <CardTitle className="text-lg">{info.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="font-semibold text-foreground mb-1">{info.content}</p>
-                    <p className="text-sm text-muted-foreground">{info.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
+          <div className="max-w-6xl mx-auto">
+            <div className="grid gap-6">
+              {/* First row - 3 cards */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {contactInfo.slice(0, 3).map((info, index) => (
+                  <Card 
+                    key={index} 
+                    className={`text-center shadow-elevation ${info.link ? 'cursor-pointer transition-transform hover:scale-105' : ''}`}
+                    onClick={() => info.link && window.open(info.link, '_blank')}
+                  >
+                    <CardHeader>
+                      <info.icon className="w-10 h-10 text-primary mx-auto mb-2" />
+                      <CardTitle className="text-lg">{info.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="font-semibold text-foreground mb-1">{info.content}</p>
+                      <p className="text-sm text-muted-foreground">{info.description}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+              
+              {/* Second row - 2 cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:w-2/3 mx-auto">
+                {contactInfo.slice(3).map((info, index) => (
+                  <Card 
+                    key={index + 3}
+                    className={`text-center shadow-elevation ${info.link ? 'cursor-pointer transition-transform hover:scale-105' : ''}`}
+                    onClick={() => info.link && window.open(info.link, '_blank')}
+                  >
+                    <CardHeader>
+                      <info.icon className="w-10 h-10 text-primary mx-auto mb-2" />
+                      <CardTitle className="text-lg">{info.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="font-semibold text-foreground mb-1">{info.content}</p>
+                      <p className="text-sm text-muted-foreground">{info.description}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -166,9 +211,14 @@ const Contact = () => {
                     />
                   </div>
 
-                  <Button type="submit" size="lg" className="w-full bg-gradient-primary">
+                  <Button 
+                    type="submit" 
+                    size="lg" 
+                    className="w-full bg-gradient-primary"
+                    disabled={isSubmitting}
+                  >
                     <Send className="w-4 h-4 mr-2" />
-                    Send Message
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </Button>
                 </form>
               </CardContent>
@@ -177,56 +227,6 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-16 bg-muted">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Frequently Asked Questions</h2>
-            <div className="space-y-4">
-              <Card className="shadow-elevation">
-                <CardHeader>
-                  <CardTitle className="text-lg">What areas do you serve?</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    We serve all of Loudoun County, Virginia and surrounding areas in Northern Virginia.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="shadow-elevation">
-                <CardHeader>
-                  <CardTitle className="text-lg">How do I schedule a driving lesson?</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    You can register online through our registration page, or call us directly to schedule your lessons at a time that works for you.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="shadow-elevation">
-                <CardHeader>
-                  <CardTitle className="text-lg">What do I need to bring to my first lesson?</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    Please bring your valid learner's permit or driver's license. We'll provide everything else you need for the lesson.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="shadow-elevation">
-                <CardHeader>
-                  <CardTitle className="text-lg">Can I cancel or reschedule a lesson?</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    Yes, we offer flexible rescheduling. Please contact us at least 24 hours in advance to reschedule without penalty.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };

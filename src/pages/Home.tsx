@@ -2,8 +2,21 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { GraduationCap, Car, Shield, Award, Users, Clock, CheckCircle } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 const Home = () => {
+  const [isAnimated, setIsAnimated] = useState(false);
+  const heroRef = useRef(null);
+
+  useEffect(() => {
+    // Start animations immediately when component mounts
+    const timer = setTimeout(() => {
+      setIsAnimated(true);
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
   const services = [
     {
       icon: GraduationCap,
@@ -33,36 +46,73 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen -mt-20">
       {/* Hero Section */}
-      <section className="relative bg-gradient-hero text-primary-foreground py-16 overflow-hidden">
-        <div className="absolute inset-0 bg-black/10"></div>
+      <section className="relative text-white h-screen flex flex-col justify-center items-center pt-20" style={{
+        backgroundImage: 'url("/banner-image.avif")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}>
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/40"></div>
+        
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl mx-auto text-center animate-fade-in">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-              Learn to Drive with Confidence
-            </h1>
-            <p className="text-lg md:text-xl mb-6 opacity-95">
-              Professional driving instruction in Loudoun County, VA
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-fade-in-up ${
+              isAnimated ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'
+            }`}>Learn to Drive with Confidence</h1>
+            <p className={`text-xl md:text-2xl mb-6 animate-fade-in-up ${
+              isAnimated ? 'opacity-90 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'
+            }`}>
+              Professional driving instruction for teens and adults in Loudoun County, Virginia
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className={`flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-1000`}>
               <Link to="/payment">
-                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground px-8">
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
                   Register Now
                 </Button>
               </Link>
               <Link to="/contact">
-                <Button size="lg" variant="outline" className="bg-white/10 border-white text-white hover:bg-white hover:text-primary px-8">
+                <Button size="lg" variant="outline" className="bg-white/10 border-white text-white hover:bg-white hover:text-primary text-lg px-8">
                   Contact Us
                 </Button>
               </Link>
             </div>
           </div>
         </div>
+
+        {/* Scroll Arrow */}
+        <button 
+          onClick={() => {
+            const mainContent = document.getElementById('main-content');
+            mainContent?.scrollIntoView({ 
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }}
+          className={`absolute bottom-4 z-10 p-4 text-white hover:text-accent transition-all duration-1500 ease-out delay-900 motion-safe:animate-[bounce_2s_infinite] ${
+            isAnimated ? 'opacity-100' : 'opacity-0'
+          }`}
+          aria-label="Scroll to content"
+        >
+          <svg 
+            className="w-8 h-8" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M19 14l-7 7m0 0l-7-7m7 7V3" 
+            />
+          </svg>
+        </button>
       </section>
 
       {/* Features and Services */}
-      <section className="py-12">
+      <section id="main-content" className="py-12 scroll-mt-8">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
             {features.map((feature, index) => (
@@ -96,23 +146,25 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-foreground mb-4">Why Choose Us?</h2>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="w-5 h-5 text-accent" />
-                  <span className="text-muted-foreground">Experienced Instructors</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="w-5 h-5 text-accent" />
-                  <span className="text-muted-foreground">High Pass Rate</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="w-5 h-5 text-accent" />
-                  <span className="text-muted-foreground">Flexible Schedule</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="w-5 h-5 text-accent" />
-                  <span className="text-muted-foreground">All Skill Levels</span>
+              <div className="border-2 border-border rounded-lg p-6">
+                <h2 className="text-3xl font-bold text-foreground mb-4">Why Choose Us?</h2>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex items-center space-x-2">
+                    <CheckCircle className="w-5 h-5 text-accent" />
+                    <span className="text-muted-foreground">Experienced Instructors</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <CheckCircle className="w-5 h-5 text-accent" />
+                    <span className="text-muted-foreground">High Pass Rate</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <CheckCircle className="w-5 h-5 text-accent" />
+                    <span className="text-muted-foreground">Flexible Schedule</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <CheckCircle className="w-5 h-5 text-accent" />
+                    <span className="text-muted-foreground">All Skill Levels</span>
+                  </div>
                 </div>
               </div>
             </div>

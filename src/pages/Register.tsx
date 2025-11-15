@@ -12,11 +12,75 @@ const Register = () => {
   const { toast } = useToast();
 
   const coursePrices = {
-    "teen-license": { price: 495, name: "Teen License Behind the Wheel", description: "Complete driver's education program" },
-    "driving-lessons": { price: 65, name: "Individual Driving Lessons", description: "Per hour of instruction" },
-    "driver-improvement": { price: 89, name: "Driver Improvement Program", description: "8-hour course" },
-    "road-test": { price: 120, name: "Road Test Package", description: "Vehicle rental and test supervision" }
+    "teen-btw": { 
+      price: 420, 
+      name: "Teen License Behind the Wheel", 
+      description: "Complete teen driving program" 
+    },
+    "adult-waiver": { 
+      price: 420, 
+      name: "Adult License Waiver Course", 
+      description: "Complete waiver program" 
+    },
+    "online-adult": { 
+      price: 157.50, 
+      name: "Online Drivers Education - Adult", 
+      description: "Complete online course" 
+    },
+    "online-teen": { 
+      price: 183.75, 
+      name: "Online Drivers Education - Teen", 
+      description: "Complete online course" 
+    },
+    "feedback": { 
+      price: 105, 
+      name: "Feedback Driving Lesson", 
+      description: "Single feedback session" 
+    },
+    "2-lessons": { 
+      price: 199.50, 
+      name: "2 Driving Lessons", 
+      description: "Package of 2 lessons" 
+    },
+    "3-lessons": { 
+      price: 283.50, 
+      name: "3 Driving Lessons", 
+      description: "Package of 3 lessons" 
+    },
+    "4-lessons": { 
+      price: 378, 
+      name: "4 Driving Lessons", 
+      description: "Package of 4 lessons" 
+    },
+    "5-lessons": { 
+      price: 472.50, 
+      name: "5 Driving Lessons", 
+      description: "Package of 5 lessons" 
+    }
   };
+
+  const paymentMethods = [
+    {
+      id: "cash",
+      name: "Cash",
+      description: "In person only at the 1st session, receipt will be issued upon request"
+    },
+    {
+      id: "check",
+      name: "Check",
+      description: "Payable to SA Driving School Inc"
+    },
+    {
+      id: "credit-card",
+      name: "Credit Card",
+      description: "Via Square (5% service fee applies)"
+    },
+    {
+      id: "zelle",
+      name: "Zelle",
+      description: "Send to info@sadriving.com"
+    }
+  ];
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -25,7 +89,7 @@ const Register = () => {
     phone: "",
     dateOfBirth: "",
     course: "",
-    numberOfSessions: "1",
+    paymentMethod: "",
     comments: "",
     // Payment fields
     cardNumber: "",
@@ -38,8 +102,9 @@ const Register = () => {
     if (!formData.course) return null;
     const coursePrice = coursePrices[formData.course].price;
     if (coursePrice === null) return "Contact Us";
-    if (formData.course === "driving-lessons") {
-      return coursePrice * parseInt(formData.numberOfSessions);
+    if (formData.paymentMethod === "credit-card") {
+      // Add 5% service fee for credit card payments
+      return coursePrice * 1.05;
     }
     return coursePrice;
   };
@@ -49,18 +114,19 @@ const Register = () => {
     if (!formData.firstName.trim() || !formData.lastName.trim()) return "Please enter your full name";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) return "Please enter a valid email address";
     if (!/^\(\d{3}\) \d{3}-\d{4}$/.test(formData.phone)) return "Please enter a valid phone number format: (XXX) XXX-XXXX";
+    if (!formData.paymentMethod) return "Please select a payment method";
     
     const today = new Date();
     const birthDate = new Date(formData.dateOfBirth);
     const age = today.getFullYear() - birthDate.getFullYear();
     if (age < 15) return "You must be at least 15 years old to register";
 
-    // Payment validation
-    if (calculateTotalPrice() !== "Contact Us") {
-      if (!formData.cardName.trim()) return "Please enter the name on your card";
-      if (!/^\d{16}$/.test(formData.cardNumber.replace(/\s/g, ''))) return "Please enter a valid 16-digit card number";
-      if (!/^\d{2}\/\d{2}$/.test(formData.expiry)) return "Please enter a valid expiry date (MM/YY)";
-      if (!/^\d{3,4}$/.test(formData.cvv)) return "Please enter a valid CVV";
+    // Credit card validation only if credit card is selected
+    if (formData.paymentMethod === "credit-card") {
+      if (!formData.cardName?.trim()) return "Please enter the name on your card";
+      if (!/^\d{16}$/.test(formData.cardNumber?.replace(/\s/g, '') || '')) return "Please enter a valid 16-digit card number";
+      if (!/^\d{2}\/\d{2}$/.test(formData.expiry || '')) return "Please enter a valid expiry date (MM/YY)";
+      if (!/^\d{3,4}$/.test(formData.cvv || '')) return "Please enter a valid CVV";
     }
     
     return null;
@@ -81,13 +147,30 @@ const Register = () => {
 
     // In a real application, you would integrate with a payment processor here
     try {
-      // Simulating payment processing
+      // Simulating processing
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       const total = calculateTotalPrice();
+      let successMessage = "";
+      
+      switch(formData.paymentMethod) {
+        case "cash":
+          successMessage = `Registration successful! Please bring $${total} in cash to your first session.`;
+          break;
+        case "check":
+          successMessage = `Registration successful! Please bring a check for $${total} payable to SA Driving School Inc.`;
+          break;
+        case "zelle":
+          successMessage = `Registration successful! Please send $${total} via Zelle to info@sadriving.com`;
+          break;
+        case "credit-card":
+          successMessage = `Registration and payment successful! A receipt has been sent to ${formData.email}`;
+          break;
+      }
+      
       toast({
         title: "Registration Successful!",
-        description: `Thank you for registering. We've sent a confirmation email to ${formData.email}`,
+        description: successMessage,
       });
 
       // Reset form
@@ -216,26 +299,7 @@ const Register = () => {
                   </div>
                 </div>
 
-                {formData.course === "driving-lessons" && (
-                  <div className="space-y-2">
-                    <Label htmlFor="numberOfSessions">Number of Sessions *</Label>
-                    <Select 
-                      value={formData.numberOfSessions} 
-                      onValueChange={(value) => handleChange("numberOfSessions", value)}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select number of sessions" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {[1, 5, 10].map((num) => (
-                          <SelectItem key={num} value={num.toString()}>
-                            {num} {num === 1 ? "Session" : "Sessions"}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                )}
+
 
                 {formData.course && (
                   <div className="flex justify-end items-center gap-2 text-lg font-bold">
@@ -246,62 +310,93 @@ const Register = () => {
                   </div>
                 )}
 
-                {formData.course && calculateTotalPrice() !== "Contact Us" && (
+                {formData.course && (
                   <div className="space-y-6 pt-6 border-t">
                     <div className="flex items-center gap-2">
                       <CreditCard className="w-5 h-5" />
-                      <h3 className="text-lg font-semibold">Payment Information</h3>
+                      <h3 className="text-lg font-semibold">Payment Method</h3>
                     </div>
 
                     <div className="space-y-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="cardName">Name on Card *</Label>
-                        <Input
-                          id="cardName"
-                          required
-                          value={formData.cardName}
-                          onChange={(e) => handleChange("cardName", e.target.value)}
-                          placeholder="John Doe"
-                        />
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {paymentMethods.map((method) => (
+                          <div
+                            key={method.id}
+                            className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                              formData.paymentMethod === method.id
+                                ? "border-primary bg-primary/5"
+                                : "border-border hover:border-primary/50"
+                            }`}
+                            onClick={() => handleChange("paymentMethod", method.id)}
+                          >
+                            <div className="flex items-center gap-2">
+                              <input
+                                type="radio"
+                                checked={formData.paymentMethod === method.id}
+                                onChange={() => handleChange("paymentMethod", method.id)}
+                                className="text-primary"
+                              />
+                              <div>
+                                <h4 className="font-medium">{method.name}</h4>
+                                <p className="text-sm text-muted-foreground">{method.description}</p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
 
-                      <div className="space-y-2">
-                        <Label htmlFor="cardNumber">Card Number *</Label>
-                        <Input
-                          id="cardNumber"
-                          required
-                          value={formData.cardNumber}
-                          onChange={(e) => handleChange("cardNumber", e.target.value)}
-                          placeholder="1234 5678 9012 3456"
-                          maxLength={19}
-                        />
-                      </div>
+                      {formData.paymentMethod === "credit-card" && (
+                        <div className="space-y-4 mt-6 pt-6 border-t">
+                          <div className="space-y-2">
+                            <Label htmlFor="cardName">Name on Card *</Label>
+                            <Input
+                              id="cardName"
+                              required
+                              value={formData.cardName}
+                              onChange={(e) => handleChange("cardName", e.target.value)}
+                              placeholder="John Doe"
+                            />
+                          </div>
 
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="expiry">Expiry Date *</Label>
-                          <Input
-                            id="expiry"
-                            required
-                            value={formData.expiry}
-                            onChange={(e) => handleChange("expiry", e.target.value)}
-                            placeholder="MM/YY"
-                            maxLength={5}
-                          />
+                          <div className="space-y-2">
+                            <Label htmlFor="cardNumber">Card Number *</Label>
+                            <Input
+                              id="cardNumber"
+                              required
+                              value={formData.cardNumber}
+                              onChange={(e) => handleChange("cardNumber", e.target.value)}
+                              placeholder="1234 5678 9012 3456"
+                              maxLength={19}
+                            />
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                              <Label htmlFor="expiry">Expiry Date *</Label>
+                              <Input
+                                id="expiry"
+                                required
+                                value={formData.expiry}
+                                onChange={(e) => handleChange("expiry", e.target.value)}
+                                placeholder="MM/YY"
+                                maxLength={5}
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <Label htmlFor="cvv">CVV *</Label>
+                              <Input
+                                id="cvv"
+                                required
+                                value={formData.cvv}
+                                onChange={(e) => handleChange("cvv", e.target.value)}
+                                placeholder="123"
+                                maxLength={4}
+                                type="password"
+                              />
+                            </div>
+                          </div>
                         </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="cvv">CVV *</Label>
-                          <Input
-                            id="cvv"
-                            required
-                            value={formData.cvv}
-                            onChange={(e) => handleChange("cvv", e.target.value)}
-                            placeholder="123"
-                            maxLength={4}
-                            type="password"
-                          />
-                        </div>
-                      </div>
+                      )}
                     </div>
                   </div>
                 )}

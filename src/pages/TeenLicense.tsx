@@ -1,9 +1,22 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ContractLink } from "@/components/ui/contract-link";
 import { Link } from "react-router-dom";
 import { Clock, DollarSign, Car, CheckCircle, Users, Award } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const TeenLicense = () => {
+  const [isAnimated, setIsAnimated] = useState(false);
+
+  useEffect(() => {
+    // Start animations immediately when component mounts
+    const timer = setTimeout(() => {
+      setIsAnimated(true);
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
   const requirements = [
     "15.5+ years old",
     "Learner's permit",
@@ -24,9 +37,9 @@ const TeenLicense = () => {
       <section className="bg-gradient-primary text-primary-foreground py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-3xl md:text-4xl font-bold mb-3">Teen License Program</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-3">Teen License Behind the Wheel</h1>
             <p className="text-lg opacity-90 mb-4">
-              Professional training for new teen drivers
+              Professional driving instruction to help teens become safe, confident drivers
             </p>
             <div className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-4 py-2 rounded-lg font-bold">
               <span>$400</span>
@@ -36,7 +49,7 @@ const TeenLicense = () => {
       </section>
 
       {/* Main Content */}
-      <section className="py-12">
+      <section id="main-content" className="py-12 scroll-mt-8">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             {/* Features Grid */}
@@ -115,6 +128,9 @@ const TeenLicense = () => {
                 </Link>
               </div>
             </div>
+            
+            {/* Contract Link */}
+            <ContractLink />
           </div>
         </div>
       </section>
