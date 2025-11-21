@@ -85,8 +85,8 @@ const TeenLicense = () => {
       <section id="main-content" className="py-12 scroll-mt-8">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 items-start">
-            {/* Left/main column (spans 2 cols on md+) */}
-            <div className="md:col-span-2">
+            {/* Left/main column (spans 2 cols on md+) - centered content */}
+            <div className="md:col-span-2 flex flex-col items-center text-center">
             {/* Features Grid */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
               {features.map((feature, index) => (
@@ -223,17 +223,22 @@ const TeenLicense = () => {
             <ContractLink />
             </div>
 
-            {/* Right/side column: image carousel */}
-            <aside className="md:col-span-1">
-              <div className="relative w-full h-64 md:h-full rounded-lg overflow-hidden shadow-lg">
-                {carouselImages.map((src, i) => (
-                  <img
-                    key={i}
-                    src={src}
-                    alt={`carousel-${i}`}
-                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${carouselIndex === i ? 'opacity-100' : 'opacity-0'}`}
-                  />
-                ))}
+            {/* Right/side column: image carousel (in a Card to match styling) */}
+            <aside className="md:col-span-1 flex justify-center">
+              <div className="w-full max-w-sm">
+                <Card className="shadow-elevation">
+                  <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden">
+                    {carouselImages.map((src, i) => (
+                      <img
+                        key={i}
+                        src={src}
+                        alt={`carousel-${i}`}
+                        loading="lazy"
+                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${carouselIndex === i ? 'opacity-100' : 'opacity-0'} border-4 border-white/80 ring-2 ring-accent/40 rounded-lg`}
+                      />
+                    ))}
+                  </div>
+                </Card>
               </div>
             </aside>
           </div>
