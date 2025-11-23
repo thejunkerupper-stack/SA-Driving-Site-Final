@@ -1,3 +1,49 @@
+/* --- CSS compatibility fixes for build warnings --- */
+input, select, textarea, button {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.line-clamp-1, .line-clamp-2, .line-clamp-3, .line-clamp-4, .line-clamp-5, .line-clamp-6 {
+  line-clamp: inherit;
+  -webkit-line-clamp: inherit;
+}
+
+/* Remove vertical-align from block elements if present (Tailwind rarely does this, but add as a safeguard) */
+div, section, article, main, header, footer, nav {
+  vertical-align: initial !important;
+}
+/* --- CSS compatibility fixes for build warnings --- */
+input, select, textarea, button {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* Add line-clamp for compatibility */
+.line-clamp-1, .line-clamp-2, .line-clamp-3, .line-clamp-4, .line-clamp-5, .line-clamp-6 {
+  line-clamp: inherit;
+  -webkit-line-clamp: inherit;
+}
+
+/* Remove vertical-align from block elements if present (Tailwind rarely does this, but add as a safeguard) */
+div, section, article, main, header, footer, nav {
+  vertical-align: initial !important;
+}
+/* Fix for CSS compatibility warnings: appearance, line-clamp, and vertical-align */
+input, select, textarea, button {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.line-clamp-1, .line-clamp-2, .line-clamp-3, .line-clamp-4, .line-clamp-5, .line-clamp-6 {
+  line-clamp: inherit;
+  -webkit-line-clamp: inherit;
+}
+
+/* Only use vertical-align for inline/inline-block, not block elements */
 #root {
   max-width: 1280px;
   margin: 0 auto;

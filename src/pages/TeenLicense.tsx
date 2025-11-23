@@ -72,11 +72,7 @@ const TeenLicense = () => {
           {carouselImages.map((src, i) => (
             <div
               key={i}
-              className={`absolute inset-0 transition-opacity ease-in-out`} 
-              style={{
-                opacity: carouselIndex === i ? 1 : 0,
-                transition: 'opacity 2.5s cubic-bezier(0.4,0,0.2,1)'
-              }}
+              className={`absolute inset-0 transition-opacity duration-1500 ${carouselIndex === i ? 'opacity-100' : 'opacity-0'}`}
             >
               <img
                 src={src}
