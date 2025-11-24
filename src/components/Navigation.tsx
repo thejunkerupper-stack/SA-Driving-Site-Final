@@ -13,6 +13,18 @@ const Navigation = () => {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [logoSrcIndex, setLogoSrcIndex] = useState(0);
+
+  // logo candidates in order of preference
+  const logoCandidates = [
+    `${import.meta.env.BASE_URL}logo.jpg`,
+    `${import.meta.env.BASE_URL}logo.png`,
+    `${import.meta.env.BASE_URL}assets/logo.jpg`,
+    `${import.meta.env.BASE_URL}assets/logo.png`,
+    `${import.meta.env.BASE_URL}placeholder.svg`,
+    `${import.meta.env.BASE_URL}favicon.ico`,
+  ];
+  const logoSrc = logoCandidates[logoSrcIndex] || logoCandidates[0];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,9 +59,13 @@ const Navigation = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <img
-              src={`${import.meta.env.BASE_URL}placeholder.svg`}
+              src={logoSrc}
               alt="SA Driving School"
               className="w-12 h-12 rounded-lg object-cover"
+              onError={() => {
+                // advance to next candidate if current fails
+                setLogoSrcIndex((i) => Math.min(i + 1, logoCandidates.length - 1));
+              }}
             />
             <div className="flex flex-col">
               <span className={`font-bold text-lg leading-none transition-colors ${
