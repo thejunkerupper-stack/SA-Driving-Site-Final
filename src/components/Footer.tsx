@@ -63,7 +63,7 @@ const Footer = () => {
         <div className="border-t border-border mt-8 pt-8 text-center text-sm opacity-90">
           <div className="mb-4">
             <a
-              href="/contract.pdf"
+              href={`${import.meta.env.BASE_URL}contract.pdf`}
               className="text-primary hover:underline"
               download="contract.pdf"
             >

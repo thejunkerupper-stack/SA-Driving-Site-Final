@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { CreditCard, DollarSign, CheckCircle } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Payment = () => {
   const { toast } = useToast();
@@ -242,9 +243,9 @@ const Payment = () => {
                 </CardHeader>
                 <CardContent className="text-sm">
                   <p className="mb-4">If you have questions about payment, please contact us.</p>
-                  <a href="/contact" className="text-primary hover:underline font-medium">
+                  <Link to="/contact" className="text-primary hover:underline font-medium">
                     Contact Support →
-                  </a>
+                  </Link>
                 </CardContent>
               </Card>
             </div>

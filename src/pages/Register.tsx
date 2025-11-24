@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { CreditCard, DollarSign } from "lucide-react";
 
 const Register = () => {
@@ -435,7 +436,7 @@ const Register = () => {
           </Card>
 
           <div className="mt-8 text-center text-muted-foreground">
-            <p>Questions about registration? <a href="/contact" className="text-primary hover:underline">Contact us</a></p>
+            <p>Questions about registration? <Link to="/contact" className="text-primary hover:underline">Contact us</Link></p>
           </div>
         </div>
       </div>

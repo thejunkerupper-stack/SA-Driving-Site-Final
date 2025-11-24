@@ -47,7 +47,7 @@ const Navigation = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <img
-              src="/logo.png"
+              src={`${import.meta.env.BASE_URL}placeholder.svg`}
               alt="SA Driving School"
               className="w-12 h-12 rounded-lg object-cover"
             />
