@@ -167,19 +167,6 @@ const Payment = () => {
                       </Select>
                     </div>
 
-                    <div className="flex flex-col gap-3">
-                      <a
-                        href={`${import.meta.env.BASE_URL}contract.pdf`}
-                        download="SA-Driving-School-Contract.pdf"
-                        className="w-full"
-                      >
-                        <Button type="button" variant="outline" size="lg" className="w-full">
-                          <Download className="w-4 h-4 mr-2" />
-                          Download Contract
-                        </Button>
-                      </a>
-                    </div>
-
                     {/* Basic Info - Always shown after service selection */}
                     {paymentData.service && (
                       <>
@@ -537,6 +524,16 @@ const Payment = () => {
                           <Button type="submit" size="lg" className="w-full bg-gradient-accent">
                             Submit Registration
                           </Button>
+                          <a
+                            href={`${import.meta.env.BASE_URL}contract.pdf`}
+                            download="SA-Driving-School-Contract.pdf"
+                            className="w-full"
+                          >
+                            <Button type="button" variant="outline" size="lg" className="w-full">
+                              <Download className="w-4 h-4 mr-2" />
+                              Download Contract
+                            </Button>
+                          </a>
                         </div>
                       </>
                     )}
