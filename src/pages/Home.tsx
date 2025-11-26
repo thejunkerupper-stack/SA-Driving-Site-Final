@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { GraduationCap, Car, Shield, Award, Users, Clock, CheckCircle } from "lucide-react";
+import { GraduationCap, Car, Shield, Award, Users, Clock, CheckCircle, Instagram } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const Home = () => {
@@ -144,7 +144,7 @@ const Home = () => {
       {/* CTA Section */}
       <section className="py-12 bg-muted">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className="grid md:grid-cols-2 gap-8 items-center mb-8">
             <div>
               <div className="border-2 border-border rounded-lg p-6">
                 <h2 className="text-3xl font-bold text-foreground mb-4">Why Choose Us?</h2>
@@ -177,6 +177,30 @@ const Home = () => {
                 </Button>
               </Link>
             </div>
+          </div>
+
+          {/* Instagram and Image Section */}
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <img 
+                src={`${import.meta.env.BASE_URL}sadrivingimage2.jpg`} 
+                alt="SA Driving School" 
+                className="rounded-lg shadow-strong w-full h-auto"
+              />
+            </div>
+            <Card 
+              className="shadow-elevation cursor-pointer transition-transform hover:scale-105"
+              onClick={() => window.open('https://www.instagram.com/sadrivingva/', '_blank')}
+            >
+              <CardHeader>
+                <Instagram className="w-10 h-10 text-primary mx-auto mb-2" />
+                <CardTitle className="text-center">Follow Us on Instagram</CardTitle>
+              </CardHeader>
+              <CardContent className="text-center">
+                <p className="font-semibold text-foreground mb-1">@sadrivingva</p>
+                <p className="text-sm text-muted-foreground">Follow us for updates, tips, and success stories!</p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
