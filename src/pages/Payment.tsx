@@ -144,8 +144,8 @@ const Payment = () => {
             <div className="md:col-span-2">
               <Card className="shadow-strong">
                 <CardHeader>
-                  <CardTitle>Payment Details</CardTitle>
-                  <CardDescription>Please enter your payment information</CardDescription>
+                  <CardTitle>Registration Details</CardTitle>
+                  <CardDescription>Please enter your registration information</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
@@ -531,39 +531,45 @@ const Payment = () => {
 
             {/* Payment Info Sidebar */}
             <div className="space-y-6">
-              <Card className="shadow-elevation">
+              <Card className="shadow-elevation bg-gradient-accent">
                 <CardHeader>
-                  <CardTitle>Secure Payment</CardTitle>
-                  <CardDescription>Your payment information is safe with us</CardDescription>
+                  <CardTitle className="text-white">Make an Online Credit Card Payment</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex items-start space-x-2">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                    <span className="text-sm">SSL encrypted connection</span>
-                  </div>
-                  <div className="flex items-start space-x-2">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                    <span className="text-sm">PCI compliant processing</span>
-                  </div>
-                  <div className="flex items-start space-x-2">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                    <span className="text-sm">Instant confirmation</span>
-                  </div>
+                <CardContent>
+                  <a 
+                    href="https://sa-driving-school-inc.square.site/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="block"
+                  >
+                    <Button className="w-full bg-white text-accent hover:bg-gray-100">
+                      Pay Online Now →
+                    </Button>
+                  </a>
                 </CardContent>
               </Card>
 
               <Card className="shadow-elevation">
                 <CardHeader>
-                  <CardTitle>Payment Options</CardTitle>
+                  <CardTitle>We Accept</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-2 text-sm">
-                  <p>We accept:</p>
-                  <ul className="space-y-1 ml-4">
-                    <li>• Visa</li>
-                    <li>• Mastercard</li>
-                    <li>• American Express</li>
-                    <li>• Discover</li>
-                  </ul>
+                <CardContent className="space-y-3 text-sm">
+                  <div>
+                    <p className="font-semibold">Cash:</p>
+                    <p className="text-muted-foreground">In person only at the 1st session, receipt will be issued upon request.</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold">Check:</p>
+                    <p className="text-muted-foreground">Payable to SA Driving School Inc</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold">Credit Card:</p>
+                    <p className="text-muted-foreground">Via Square (5% service fee)</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold">Zelle:</p>
+                    <p className="text-muted-foreground">Send to info@sadriving.com</p>
+                  </div>
                 </CardContent>
               </Card>
 
