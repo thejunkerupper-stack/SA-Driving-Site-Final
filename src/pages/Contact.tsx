@@ -81,7 +81,7 @@ ${formData.message}
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-primary text-primary-foreground py-16">
+      <section className="bg-gradient-primary text-primary-foreground py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-3xl md:text-4xl font-bold mb-4">Contact Us</h1>
@@ -90,37 +90,10 @@ ${formData.message}
             </p>
           </div>
         </div>
-
-        {/* Scroll Arrow */}
-        <button 
-          onClick={() => {
-            const contactInfo = document.getElementById('contact-info');
-            contactInfo?.scrollIntoView({ 
-              behavior: 'smooth',
-              block: 'start'
-            });
-          }}
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 p-4 text-white hover:text-accent transition-all duration-1500 ease-out delay-900 motion-safe:animate-[bounce_2s_infinite]"
-          aria-label="Scroll to content"
-        >
-          <svg 
-            className="w-8 h-8" 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
-          >
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={2} 
-              d="M19 14l-7 7m0 0l-7-7m7 7V3" 
-            />
-          </svg>
-        </button>
       </section>
 
         {/* Contact Info Cards */}
-      <section id="contact-info" className="py-16 bg-muted scroll-mt-8">
+      <section id="contact-info" className="relative py-16 bg-muted scroll-mt-8">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid gap-6">
@@ -166,6 +139,33 @@ ${formData.message}
             </div>
           </div>
         </div>
+
+        {/* Scroll Arrow - positioned between Business Hours and Instagram */}
+        <button 
+          onClick={() => {
+            const form = document.querySelector('form');
+            form?.scrollIntoView({ 
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }}
+          className="absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 z-10 p-4 text-foreground hover:text-primary transition-all duration-300 motion-safe:animate-[bounce_2s_infinite]"
+          aria-label="Scroll to form"
+        >
+          <svg 
+            className="w-8 h-8" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M19 14l-7 7m0 0l-7-7m7 7V3" 
+            />
+          </svg>
+        </button>
       </section>
 
       {/* Contact Form */}
