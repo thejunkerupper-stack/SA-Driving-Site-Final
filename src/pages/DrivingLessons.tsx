@@ -51,7 +51,7 @@ const DrivingLessons = () => {
         "6 hours instruction",
         "Road test prep",
         "Full coverage",
-        "Best value",
+        "Comprehensive training",
       ],
     },
     {
