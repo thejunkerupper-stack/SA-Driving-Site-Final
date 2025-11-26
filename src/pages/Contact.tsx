@@ -149,7 +149,7 @@ ${formData.message}
               block: 'start'
             });
           }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 p-4 text-foreground hover:text-primary transition-all duration-300 motion-safe:animate-[bounce_2s_infinite]"
+          className="absolute bottom-12 left-[48%] -translate-x-1/2 z-10 p-4 text-foreground hover:text-primary transition-all duration-300 motion-safe:animate-[bounce_2s_infinite]"
           aria-label="Scroll to form"
         >
           <svg 
