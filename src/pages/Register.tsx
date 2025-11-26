@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { CreditCard, DollarSign } from "lucide-react";
+import { CreditCard } from "lucide-react";
 
 const Register = () => {
   const { toast } = useToast();
@@ -87,26 +87,20 @@ const Register = () => {
     firstName: "",
     lastName: "",
     email: "",
-    phone: "",
+    studentPhone: "",
+    parentPhone: "",
+    address: "",
+    permitDateIssued: "",
     dateOfBirth: "",
     course: "",
     paymentMethod: "",
     comments: "",
-    // Payment fields
-    cardNumber: "",
-    cardName: "",
-    expiry: "",
-    cvv: "",
   });
 
   const calculateTotalPrice = () => {
     if (!formData.course) return null;
     const coursePrice = coursePrices[formData.course].price;
     if (coursePrice === null) return "Contact Us";
-    if (formData.paymentMethod === "credit-card") {
-      // Add 5% service fee for credit card payments
-      return coursePrice * 1.05;
-    }
     return coursePrice;
   };
 
@@ -114,21 +108,16 @@ const Register = () => {
     if (!formData.course) return "Please select a course";
     if (!formData.firstName.trim() || !formData.lastName.trim()) return "Please enter your full name";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) return "Please enter a valid email address";
-    if (!/^\(\d{3}\) \d{3}-\d{4}$/.test(formData.phone)) return "Please enter a valid phone number format: (XXX) XXX-XXXX";
+    if (!formData.studentPhone.trim()) return "Please enter student phone number";
+    if (!formData.address.trim()) return "Please enter address";
+    if (!formData.permitDateIssued) return "Please enter permit date issued";
+    if (!formData.dateOfBirth) return "Please enter date of birth";
     if (!formData.paymentMethod) return "Please select a payment method";
     
     const today = new Date();
     const birthDate = new Date(formData.dateOfBirth);
     const age = today.getFullYear() - birthDate.getFullYear();
     if (age < 15) return "You must be at least 15 years old to register";
-
-    // Credit card validation only if credit card is selected
-    if (formData.paymentMethod === "credit-card") {
-      if (!formData.cardName?.trim()) return "Please enter the name on your card";
-      if (!/^\d{16}$/.test(formData.cardNumber?.replace(/\s/g, '') || '')) return "Please enter a valid 16-digit card number";
-      if (!/^\d{2}\/\d{2}$/.test(formData.expiry || '')) return "Please enter a valid expiry date (MM/YY)";
-      if (!/^\d{3,4}$/.test(formData.cvv || '')) return "Please enter a valid CVV";
-    }
     
     return null;
   };
@@ -179,15 +168,14 @@ const Register = () => {
         firstName: "",
         lastName: "",
         email: "",
-        phone: "",
+        studentPhone: "",
+        parentPhone: "",
+        address: "",
+        permitDateIssued: "",
         dateOfBirth: "",
         course: "",
-        numberOfSessions: "1",
+        paymentMethod: "",
         comments: "",
-        cardNumber: "",
-        cardName: "",
-        expiry: "",
-        cvv: "",
       });
     } catch (error) {
       toast({
@@ -200,20 +188,6 @@ const Register = () => {
 
   const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
-  // Expiry input helper: sanitize on input and format to MM/YY on blur
-  const onExpiryInputChange = (value: string) => {
-    // allow digits and slash while typing, cap length to 5
-    let v = value.replace(/[^0-9/]/g, '');
-    if (v.length > 5) v = v.slice(0, 5);
-    handleChange('expiry', v);
-  };
-
-  const formatExpiry = (value: string) => {
-    const digits = (value || '').replace(/\D/g, '').slice(0, 4);
-    if (digits.length <= 2) return digits;
-    return digits.slice(0, 2) + '/' + digits.slice(2);
   };
 
   return (
@@ -270,19 +244,29 @@ const Register = () => {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="phone">Phone Number *</Label>
+                    <Label htmlFor="studentPhone">Student Phone Number *</Label>
                     <Input
-                      id="phone"
+                      id="studentPhone"
                       type="tel"
                       required
-                      value={formData.phone}
-                      onChange={(e) => handleChange("phone", e.target.value)}
+                      value={formData.studentPhone}
+                      onChange={(e) => handleChange("studentPhone", e.target.value)}
                       placeholder="(555) 123-4567"
                     />
                   </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="parentPhone">Parent Phone Number (Optional)</Label>
+                    <Input
+                      id="parentPhone"
+                      type="tel"
+                      value={formData.parentPhone}
+                      onChange={(e) => handleChange("parentPhone", e.target.value)}
+                      placeholder="(555) 123-4567"
+                    />
+                  </div>
                   <div className="space-y-2">
                     <Label htmlFor="dateOfBirth">Date of Birth *</Label>
                     <Input
@@ -291,6 +275,30 @@ const Register = () => {
                       required
                       value={formData.dateOfBirth}
                       onChange={(e) => handleChange("dateOfBirth", e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="address">Address *</Label>
+                  <Input
+                    id="address"
+                    required
+                    value={formData.address}
+                    onChange={(e) => handleChange("address", e.target.value)}
+                    placeholder="123 Main St, City, State, ZIP"
+                  />
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="permitDateIssued">Permit Date Issued *</Label>
+                    <Input
+                      id="permitDateIssued"
+                      type="date"
+                      required
+                      value={formData.permitDateIssued}
+                      onChange={(e) => handleChange("permitDateIssued", e.target.value)}
                     />
                   </div>
                   <div className="space-y-2">
@@ -313,17 +321,6 @@ const Register = () => {
                     </Select>
                   </div>
                 </div>
-
-
-
-                {formData.course && (
-                  <div className="flex justify-end items-center gap-2 text-lg font-bold">
-                    <DollarSign className="w-5 h-5 text-accent" />
-                    <span className="text-accent">
-                      Total: {calculateTotalPrice() === "Contact Us" ? "Contact Us" : `$${calculateTotalPrice()}`}
-                    </span>
-                  </div>
-                )}
 
                 {formData.course && (
                   <div className="space-y-6 pt-6 border-t">
@@ -359,60 +356,6 @@ const Register = () => {
                           </div>
                         ))}
                       </div>
-
-                      {formData.paymentMethod === "credit-card" && (
-                        <div className="space-y-4 mt-6 pt-6 border-t">
-                          <div className="space-y-2">
-                            <Label htmlFor="cardName">Name on Card *</Label>
-                            <Input
-                              id="cardName"
-                              required
-                              value={formData.cardName}
-                              onChange={(e) => handleChange("cardName", e.target.value)}
-                              placeholder="John Doe"
-                            />
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="cardNumber">Card Number *</Label>
-                            <Input
-                              id="cardNumber"
-                              required
-                              value={formData.cardNumber}
-                              onChange={(e) => handleChange("cardNumber", e.target.value)}
-                              placeholder="1234 5678 9012 3456"
-                              maxLength={19}
-                            />
-                          </div>
-
-                          <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                              <Label htmlFor="expiry">Expiry Date *</Label>
-                              <Input
-                                id="expiry"
-                                required
-                                value={formData.expiry}
-                                onChange={(e) => onExpiryInputChange(e.target.value)}
-                                onBlur={(e) => handleChange('expiry', formatExpiry(e.target.value))}
-                                placeholder="MM/YY"
-                                maxLength={5}
-                              />
-                            </div>
-                            <div className="space-y-2">
-                              <Label htmlFor="cvv">CVV *</Label>
-                              <Input
-                                id="cvv"
-                                required
-                                value={formData.cvv}
-                                onChange={(e) => handleChange("cvv", e.target.value)}
-                                placeholder="123"
-                                maxLength={4}
-                                type="password"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      )}
                     </div>
                   </div>
                 )}
