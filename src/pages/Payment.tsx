@@ -531,29 +531,6 @@ const Payment = () => {
 
             {/* Payment Info Sidebar */}
             <div className="space-y-6">
-              <Card className="shadow-elevation" style={{ backgroundColor: 'hsl(24, 80%, 50%)' }}>
-                <CardHeader>
-                  <CardTitle className="text-white">Make an Online Credit Card Payment</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <img 
-                    src={`${import.meta.env.BASE_URL}creditcards.png`} 
-                    alt="Accepted credit cards" 
-                    className="w-full max-w-[200px] mx-auto"
-                  />
-                  <a 
-                    href="https://sa-driving-school-inc.square.site/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
-                    <Button className="w-full bg-white hover:bg-gray-100" style={{ color: 'hsl(24, 80%, 50%)' }}>
-                      Pay Online Now →
-                    </Button>
-                  </a>
-                </CardContent>
-              </Card>
-
               <Card className="shadow-elevation">
                 <CardHeader>
                   <CardTitle>We Accept</CardTitle>
@@ -575,6 +552,29 @@ const Payment = () => {
                     <p className="font-semibold">Zelle:</p>
                     <p className="text-muted-foreground">Send to info@sadriving.com</p>
                   </div>
+                </CardContent>
+              </Card>
+
+              <Card className="shadow-elevation" style={{ backgroundColor: 'hsl(24, 80%, 50%)' }}>
+                <CardHeader>
+                  <CardTitle className="text-white">Make an Online Credit Card Payment</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <img 
+                    src={`${import.meta.env.BASE_URL}creditcards.png`} 
+                    alt="Accepted credit cards" 
+                    className="w-full max-w-[200px] mx-auto"
+                  />
+                  <a 
+                    href="https://sa-driving-school-inc.square.site/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="block"
+                  >
+                    <Button className="w-full bg-white hover:bg-gray-100" style={{ color: 'hsl(24, 80%, 50%)' }}>
+                      Pay Online Now →
+                    </Button>
+                  </a>
                 </CardContent>
               </Card>
 
