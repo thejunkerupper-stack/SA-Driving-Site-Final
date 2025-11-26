@@ -531,7 +531,7 @@ const Payment = () => {
 
             {/* Payment Info Sidebar */}
             <div className="space-y-6">
-              <Card className="shadow-elevation bg-gradient-accent">
+              <Card className="shadow-elevation" style={{ backgroundColor: 'hsl(24, 80%, 50%)' }}>
                 <CardHeader>
                   <CardTitle className="text-white">Make an Online Credit Card Payment</CardTitle>
                 </CardHeader>
@@ -542,7 +542,7 @@ const Payment = () => {
                     rel="noopener noreferrer"
                     className="block"
                   >
-                    <Button className="w-full bg-white text-accent hover:bg-gray-100">
+                    <Button className="w-full bg-white hover:bg-gray-100" style={{ color: 'hsl(24, 80%, 50%)' }}>
                       Pay Online Now →
                     </Button>
                   </a>
@@ -553,7 +553,7 @@ const Payment = () => {
                 <CardHeader>
                   <CardTitle>We Accept</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-3 text-sm">
+                <CardContent className="space-y-4 text-sm">
                   <div>
                     <p className="font-semibold">Cash:</p>
                     <p className="text-muted-foreground">In person only at the 1st session, receipt will be issued upon request.</p>
@@ -565,6 +565,11 @@ const Payment = () => {
                   <div>
                     <p className="font-semibold">Credit Card:</p>
                     <p className="text-muted-foreground">Via Square (5% service fee)</p>
+                    <img 
+                      src={`${import.meta.env.BASE_URL}creditcards.png`} 
+                      alt="Accepted credit cards" 
+                      className="mt-2 w-full max-w-[200px]"
+                    />
                   </div>
                   <div>
                     <p className="font-semibold">Zelle:</p>
