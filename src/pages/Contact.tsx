@@ -119,7 +119,7 @@ const Contact = () => {
           <div className="max-w-3xl mx-auto">
             <Card className="shadow-strong">
               <CardHeader>
-                <CardTitle className="text-2xl">Send Us a Message</CardTitle>
+                <CardTitle className="text-2xl text-foreground">Send Us a Message</CardTitle>
                 <CardDescription>Fill out the form below and we'll get back to you shortly</CardDescription>
               </CardHeader>
               <CardContent>

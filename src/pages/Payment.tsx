@@ -31,7 +31,7 @@ const Payment = () => {
             <div className="md:col-span-2">
               <Card className="shadow-strong">
                 <CardHeader>
-                  <CardTitle>Registration Details</CardTitle>
+                  <CardTitle className="text-foreground">Registration Details</CardTitle>
                   <CardDescription>Please enter your registration information</CardDescription>
                 </CardHeader>
                 <CardContent>
