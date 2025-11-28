@@ -83,23 +83,5 @@ input, select, textarea, button {
   padding: 2em;
 }
 
-.read-the-docs {
-  color: #888;
-}
-
-/* Hide Tally branding */
-iframe[data-tally-src] {
-  position: relative;
-}
-
-/* Cover the "Made with Tally" text at bottom of forms */
-iframe[data-tally-src]::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 40px;
-  background: white;
-  z-index: 9999;
+.read-the-docs {  color: #888;
 }

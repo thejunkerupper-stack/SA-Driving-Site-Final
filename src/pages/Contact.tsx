@@ -123,17 +123,20 @@ const Contact = () => {
                 <CardDescription>Fill out the form below and we'll get back to you shortly</CardDescription>
               </CardHeader>
               <CardContent>
-                <iframe 
-                  data-tally-src="https://tally.so/embed/jaelN4?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
-                  loading="lazy" 
-                  width="100%" 
-                  height="324" 
-                  frameBorder="0" 
-                  marginHeight={0}
-                  marginWidth={0}
-                  title="Contact form"
-                  style={{ border: 'none' }}
-                ></iframe>
+                <div style={{ position: 'relative' }}>
+                  <iframe 
+                    data-tally-src="https://tally.so/embed/jaelN4?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
+                    loading="lazy" 
+                    width="100%" 
+                    height="324" 
+                    frameBorder="0" 
+                    marginHeight={0}
+                    marginWidth={0}
+                    title="Contact form"
+                    style={{ border: 'none' }}
+                  ></iframe>
+                  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '35px', background: 'white', pointerEvents: 'none' }} />
+                </div>
               </CardContent>
             </Card>
           </div>

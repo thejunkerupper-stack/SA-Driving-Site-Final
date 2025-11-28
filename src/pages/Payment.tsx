@@ -35,17 +35,20 @@ const Payment = () => {
                   <CardDescription>Please enter your registration information</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <iframe 
-                    data-tally-src="https://tally.so/embed/yPXJVx?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
-                    loading="lazy" 
-                    width="100%" 
-                    height="1489" 
-                    frameBorder="0" 
-                    marginHeight={0}
-                    marginWidth={0}
-                    title="Registration form"
-                    style={{ border: 'none' }}
-                  ></iframe>
+                  <div style={{ position: 'relative' }}>
+                    <iframe 
+                      data-tally-src="https://tally.so/embed/yPXJVx?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
+                      loading="lazy" 
+                      width="100%" 
+                      height="1489" 
+                      frameBorder="0" 
+                      marginHeight={0}
+                      marginWidth={0}
+                      title="Registration form"
+                      style={{ border: 'none' }}
+                    ></iframe>
+                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '35px', background: 'white', pointerEvents: 'none' }} />
+                  </div>
                   <div className="mt-6">
                     <a
                       href={`${import.meta.env.BASE_URL}contract.pdf`}
