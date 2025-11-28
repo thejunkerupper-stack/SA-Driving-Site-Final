@@ -99,32 +99,7 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* Scroll Arrow - positioned lower, centered between cards and form */}
-        <button 
-          onClick={() => {
-            const formSection = document.getElementById('contact-form');
-            formSection?.scrollIntoView({ 
-              behavior: 'smooth',
-              block: 'start'
-            });
-          }}
-          className="absolute bottom-12 left-[48%] -translate-x-1/2 z-10 p-4 text-foreground hover:text-primary transition-all duration-300 motion-safe:animate-[bounce_2s_infinite]"
-          aria-label="Scroll to form"
-        >
-          <svg 
-            className="w-8 h-8" 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
-          >
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={2} 
-              d="M19 14l-7 7m0 0l-7-7m7 7V3" 
-            />
-          </svg>
-        </button>
+  
       </section>
 
       {/* Contact Form */}
