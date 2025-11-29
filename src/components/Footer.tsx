@@ -71,7 +71,7 @@ const Footer = () => {
             </a>
           </div>
           <p>&copy; {new Date().getFullYear()} SA Driving School Inc. All rights reserved.</p>
-          <p className="text-xs mt-2">Website designed by Arnav Choudhary, Hemanya Katram, and Leo Su</p>
+          <p className="text-xs mt-2">Website designed by Hemanya Katram, Leo Su, and Arnav Choudhary</p>
         </div>
       </div>
     </footer>
