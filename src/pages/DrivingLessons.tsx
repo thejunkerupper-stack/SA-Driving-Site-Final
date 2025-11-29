@@ -40,7 +40,6 @@ const DrivingLessons = () => {
         "Priority booking",
         "Skill development",
       ],
-      popular: true,
     },
     {
       title: "4 Driving Lessons",
