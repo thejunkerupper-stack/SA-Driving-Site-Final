@@ -33,6 +33,7 @@ const Navigation = () => {
   const programItems = [
     { path: "/teen-license", label: "Teen License Program" },
     { path: "/driving-lessons", label: "Driving Lessons" },
+    { path: "/adult-waiver", label: "Adult Waiver Course" },
     { path: "https://online.sadriving.com", label: "Driver Improvement", external: true },
   ];
 
