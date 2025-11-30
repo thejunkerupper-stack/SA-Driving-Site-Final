@@ -18,7 +18,7 @@ const Payment = () => {
   return (
     <div className="min-h-screen py-12 bg-muted">
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-foreground mb-4">Register For A Course</h1>
             <p className="text-xl text-muted-foreground">
@@ -26,10 +26,10 @@ const Payment = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-4 gap-6">
             {/* Important Advisories - New Left Column */}
             <div className="md:col-span-1">
-              <Card className="shadow-elevation border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 sticky top-24">
+              <Card className="shadow-elevation border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50">
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center gap-2 text-amber-900">
                     <AlertCircle className="w-5 h-5 text-amber-600" />
