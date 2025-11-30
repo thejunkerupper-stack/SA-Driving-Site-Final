@@ -49,18 +49,12 @@ const Home = () => {
     <div className="min-h-screen -mt-20">
       {/* Hero Section */}
       <section className="relative text-white h-screen flex flex-col justify-center items-center pt-20" style={{
-        background: `linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)`,
+        backgroundImage: `url("${import.meta.env.BASE_URL}sadrivingcamrybanner.jpeg")`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}>
-        {/* Logo overlay */}
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("${import.meta.env.BASE_URL}logo.png")`,
-          backgroundSize: 'contain',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          opacity: 0.9
-        }}></div>
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/40"></div>
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
