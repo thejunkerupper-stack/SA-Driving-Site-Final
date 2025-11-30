@@ -33,7 +33,7 @@ const Navigation = () => {
   const programItems = [
     { path: "/teen-license", label: "Teen License Program" },
     { path: "/driving-lessons", label: "Driving Lessons" },
-    { path: "/driver-improvement", label: "Driver Improvement" },
+    { path: "https://online.sadriving.com", label: "Driver Improvement", external: true },
   ];
 
   return (
@@ -88,9 +88,15 @@ const Navigation = () => {
               <DropdownMenuContent>
                 {programItems.map((item) => (
                   <DropdownMenuItem key={item.path} asChild>
-                    <Link to={item.path} className="w-full">
-                      {item.label}
-                    </Link>
+                    {item.external ? (
+                      <a href={item.path} className="w-full">
+                        {item.label}
+                      </a>
+                    ) : (
+                      <Link to={item.path} className="w-full">
+                        {item.label}
+                      </Link>
+                    )}
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
@@ -152,14 +158,25 @@ const Navigation = () => {
 
             <div className="px-2 py-2 text-sm font-semibold">Programs:</div>
             {programItems.map((item) => (
-              <Link key={item.path} to={item.path} onClick={() => setMobileMenuOpen(false)}>
-                <Button
-                  variant={location.pathname === item.path ? "default" : "ghost"}
-                  className="w-full justify-start pl-4"
-                >
-                  {item.label}
-                </Button>
-              </Link>
+              item.external ? (
+                <a key={item.path} href={item.path} onClick={() => setMobileMenuOpen(false)}>
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start pl-4"
+                  >
+                    {item.label}
+                  </Button>
+                </a>
+              ) : (
+                <Link key={item.path} to={item.path} onClick={() => setMobileMenuOpen(false)}>
+                  <Button
+                    variant={location.pathname === item.path ? "default" : "ghost"}
+                    className="w-full justify-start pl-4"
+                  >
+                    {item.label}
+                  </Button>
+                </Link>
+              )
             ))}
 
             <Link to="/payment" onClick={() => setMobileMenuOpen(false)}>
