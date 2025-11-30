@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Download } from "lucide-react";
+import { Download, AlertCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -27,43 +27,38 @@ const Payment = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {/* Payment Form */}
-            <div className="md:col-span-2">
-              <Card className="shadow-strong">
+            {/* Left Sidebar - Advisories & Payment Info */}
+            <div className="space-y-6">
+              {/* Important Advisories */}
+              <Card className="shadow-elevation border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50">
                 <CardHeader>
-                  <CardTitle className="text-foreground">Registration Details</CardTitle>
-                  <CardDescription>Please enter your registration information</CardDescription>
+                  <CardTitle className="text-lg flex items-center gap-2 text-amber-900">
+                    <AlertCircle className="w-5 h-5 text-amber-600" />
+                    Important Notices
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <iframe 
-                    data-tally-src="https://tally.so/embed/yPXJVx?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
-                    loading="lazy" 
-                    width="100%" 
-                    height="1489" 
-                    frameBorder="0" 
-                    marginHeight={0}
-                    marginWidth={0}
-                    title="Registration form"
-                    style={{ border: 'none' }}
-                  ></iframe>
-                  <div className="mt-6">
-                    <a
-                      href={`${import.meta.env.BASE_URL}contract.pdf`}
-                      download="SA-Driving-School-Contract.pdf"
-                      className="w-full block"
-                    >
-                      <Button type="button" variant="outline" size="lg" className="w-full">
-                        <Download className="w-4 h-4 mr-2" />
-                        Download Contract
-                      </Button>
-                    </a>
-                  </div>
+                  <ul className="space-y-3 text-sm text-amber-900">
+                    <li className="flex items-start space-x-2">
+                      <AlertCircle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                      <span>No sandals, slippers, or slides while driving</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <AlertCircle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                      <span>Sessions may be cancelled due to inclement weather</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <AlertCircle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                      <span>Course cancelled if no response for 30+ days (no refunds)</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <AlertCircle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                      <span>$50 cancellation fee if not ready after 1st session</span>
+                    </li>
+                  </ul>
                 </CardContent>
               </Card>
-            </div>
 
-            {/* Payment Info Sidebar */}
-            <div className="space-y-6">
               <Card className="shadow-elevation">
                 <CardHeader>
                   <CardTitle>We Accept</CardTitle>
@@ -120,6 +115,41 @@ const Payment = () => {
                   <Link to="/contact" className="text-primary hover:underline font-medium">
                     Contact Support →
                   </Link>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Registration Form */}
+            <div className="md:col-span-2">
+              <Card className="shadow-strong">
+                <CardHeader>
+                  <CardTitle className="text-foreground">Registration Details</CardTitle>
+                  <CardDescription>Please enter your registration information</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <iframe 
+                    data-tally-src="https://tally.so/embed/yPXJVx?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
+                    loading="lazy" 
+                    width="100%" 
+                    height="1489" 
+                    frameBorder="0" 
+                    marginHeight={0}
+                    marginWidth={0}
+                    title="Registration form"
+                    style={{ border: 'none' }}
+                  ></iframe>
+                  <div className="mt-6">
+                    <a
+                      href={`${import.meta.env.BASE_URL}contract.pdf`}
+                      download="SA-Driving-School-Contract.pdf"
+                      className="w-full block"
+                    >
+                      <Button type="button" variant="outline" size="lg" className="w-full">
+                        <Download className="w-4 h-4 mr-2" />
+                        Download Contract
+                      </Button>
+                    </a>
+                  </div>
                 </CardContent>
               </Card>
             </div>

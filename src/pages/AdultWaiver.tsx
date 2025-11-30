@@ -225,26 +225,6 @@ const AdultWaiver = () => {
                 </p>
               </CardContent>
             </Card>
-
-            {/* Advisories */}
-            <Card className="shadow-elevation border-amber-200 bg-amber-50/50">
-              <CardHeader>
-                <CardTitle className="text-xl flex items-center gap-2 text-amber-900">
-                  <AlertCircle className="w-5 h-5 text-amber-600" />
-                  Please Be Advised
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-sm text-amber-900">
-                  {advisories.map((advisory, index) => (
-                    <li key={index} className="flex items-start space-x-2">
-                      <AlertCircle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
-                      <span>{advisory}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>
