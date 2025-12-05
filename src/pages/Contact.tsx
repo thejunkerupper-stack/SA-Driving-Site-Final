@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Phone, Mail, MapPin, Clock, Instagram } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Instagram, MessageSquare } from "lucide-react";
 import { useEffect } from "react";
 
 const Contact = () => {
@@ -76,7 +76,14 @@ const Contact = () => {
                     onClick={() => info.link && window.open(info.link, '_blank')}
                   >
                     <CardHeader>
-                      <info.icon className="w-10 h-10 text-primary mx-auto mb-2" />
+                      {index === 0 ? (
+                        <div className="flex justify-center items-center gap-2 mb-2">
+                          <Phone className="w-10 h-10 text-primary" />
+                          <MessageSquare className="w-10 h-10 text-primary" />
+                        </div>
+                      ) : (
+                        <info.icon className="w-10 h-10 text-primary mx-auto mb-2" />
+                      )}
                       <CardTitle className="text-lg">{info.title}</CardTitle>
                     </CardHeader>
                     <CardContent>
