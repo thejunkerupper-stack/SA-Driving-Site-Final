@@ -18,7 +18,7 @@ const Contact = () => {
       icon: Phone,
       title: "Phone",
       content: "(703) 982-1400",
-      description: "Mon-Fri 7:30AM-5:30PM, Sat 9AM-2PM",
+      description: "Call or Text | Mon-Fri 7:30AM-5:30PM, Sat 9AM-2PM",
     },
     {
       icon: Mail,

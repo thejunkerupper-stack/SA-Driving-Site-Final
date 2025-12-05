@@ -219,7 +219,7 @@ const TeenLicense = () => {
                   <div>
                     <h4 className="font-semibold mb-2">Physical License</h4>
                     <p className="text-sm text-muted-foreground">
-                      Within 60-90 days of completion, you will automatically receive your drivers license from DMV (Richmond) in the mail.
+                      Within 90 days of completion, you will automatically receive your drivers license from DMV (Richmond) in the mail.
                     </p>
                   </div>
                 </div>

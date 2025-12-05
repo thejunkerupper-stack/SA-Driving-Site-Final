@@ -79,7 +79,7 @@ const AdultWaiver = () => {
     "Student receives DTS-D Waiver form",
     "DTS-D exempts you from DMV Road Test",
     "SA Driving School mails DTS-D to DMV Richmond",
-    "Processing takes up to 2 weeks",
+    "Processing takes up to 4 weeks",
     "Letter mailed if license cannot be processed",
   ];
 
